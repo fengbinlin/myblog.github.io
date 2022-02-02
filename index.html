@@ -64,6 +64,126 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-2022-2-2-回顾" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/myblog.github.io/2022/02/02/2022-2-2-%E5%9B%9E%E9%A1%BE/" class="article-date">
+  <time datetime="2022-02-02T14:06:49.000Z" itemprop="datePublished">2022-02-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/myblog.github.io/2022/02/02/2022-2-2-%E5%9B%9E%E9%A1%BE/">2022-2-2-回顾</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>近几日天大寒，做什么都很费劲，极其不利于学习。<br>今天读了少许《明朝那些事》。<br>见识到了孤灯苦读下的读书人的气节。<br>有必要再一次抄录他们的姓名：黄观、齐泰、黄子澄、方孝孺、盛庸、铁铉、张伦、台州的樵夫……<br>这一杯酒，敬你们。<br>读到“黄观，洪武年间连中三元，其登科名为篡权者朱棣划去，尽忠而死。我相信，真相是永远无法掩盖的。”竟然潸然泪下，不知所措……<br>今日，看完《算法》图论部分，有些懵逼，又读了些材料，茅塞顿开，明日继续努力。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/02/2022-2-2-%E5%9B%9E%E9%A1%BE/" data-id="ckz5mwx4w0003mkui74km565z" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2022-2-2-笔记-算法-图" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/myblog.github.io/2022/02/02/2022-2-2-%E7%AC%94%E8%AE%B0-%E7%AE%97%E6%B3%95-%E5%9B%BE/" class="article-date">
+  <time datetime="2022-02-02T10:02:38.000Z" itemprop="datePublished">2022-02-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/myblog.github.io/2022/02/02/2022-2-2-%E7%AC%94%E8%AE%B0-%E7%AE%97%E6%B3%95-%E5%9B%BE/">2022-2-2-笔记-算法-图</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>根据《算法》第四版大致了解了图的概念和思想<br>经过查阅资料我们把书中的算法和思想在python中实现。<br>python中，图的表示方法有许多：<br>1.使用列表+集合。表示没有权重的图</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">a, b, c, d, e, f, g, h = <span class="built_in">range</span>(<span class="number">8</span>)</span><br><span class="line">N = [</span><br><span class="line">    &#123;b, c, d, e, f&#125;,</span><br><span class="line">    &#123;c, e&#125;,</span><br><span class="line">    &#123;d&#125;,</span><br><span class="line">    &#123;e&#125;,</span><br><span class="line">    &#123;f&#125;,</span><br><span class="line">    &#123;c, g, h&#125;,</span><br><span class="line">    &#123;f, h&#125;,</span><br><span class="line">    &#123;f, g&#125;</span><br><span class="line">]  </span><br></pre></td></tr></table></figure>
+<p>2.使用列表+字典。表示带有权重的图</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">a, b, c, d, e, f, g, h = <span class="built_in">range</span>(<span class="number">8</span>)</span><br><span class="line">N = [</span><br><span class="line"></span><br><span class="line">    &#123;b:<span class="number">2</span>, c:<span class="number">1</span>, d:<span class="number">3</span>, e:<span class="number">9</span>, f:<span class="number">4</span>&#125;,</span><br><span class="line">    &#123;c:<span class="number">4</span>, e:<span class="number">4</span>&#125;,</span><br><span class="line">    &#123;d:<span class="number">8</span>&#125;,</span><br><span class="line">    &#123;e:<span class="number">7</span>&#125;,</span><br><span class="line">    &#123;f:<span class="number">5</span>&#125;,</span><br><span class="line">    &#123;c:<span class="number">2</span>, g:<span class="number">2</span>, h:<span class="number">2</span>&#125;,</span><br><span class="line">    &#123;f:<span class="number">1</span>, h:<span class="number">6</span>&#125;,</span><br><span class="line">    &#123;f:<span class="number">9</span>, g:<span class="number">8</span>&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>3.使用列表+列表形成邻接矩阵。表示图</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">a, b, c, d, e, f, g, h = <span class="built_in">range</span>(<span class="number">8</span>)</span><br><span class="line"></span><br><span class="line">N =[</span><br><span class="line">    [<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">    [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">    [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">    [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">    [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">    [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>],</span><br><span class="line">    [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>],</span><br><span class="line">    [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>],</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>若表示的是无向图：<br>行和列中非零元素的个数表示表示该点的度。<br>可以得出一个结论，无向图中，第x行和第x列的非零元素的个数是相同的。<br>若表示的是无向图：<br>列中非零元素的个数表示入度。<br>行中非零元素的个数表示出度。   </p>
+<p>入度 (in-degree) ：以某顶点为弧头，终止于该顶点的弧的数目称为该顶点的入度<br>出度 (out-degree) ：以某顶点为弧尾，起始于该顶点的弧的数目称为该顶点的出度    </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/02/2022-2-2-%E7%AC%94%E8%AE%B0-%E7%AE%97%E6%B3%95-%E5%9B%BE/" data-id="ckz5mwx4x0004mkuiaetia8f6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-结束休假，继续战斗！" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/myblog.github.io/2022/02/02/%E7%BB%93%E6%9D%9F%E4%BC%91%E5%81%87%EF%BC%8C%E7%BB%A7%E7%BB%AD%E6%88%98%E6%96%97%EF%BC%81/" class="article-date">
+  <time datetime="2022-02-02T01:22:47.000Z" itemprop="datePublished">2022-02-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/myblog.github.io/2022/02/02/%E7%BB%93%E6%9D%9F%E4%BC%91%E5%81%87%EF%BC%8C%E7%BB%A7%E7%BB%AD%E6%88%98%E6%96%97%EF%BC%81/">结束休假，继续前进吧。</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今日任务：<br>1.精读《算法第四版》第四版图部分<br>2.临帖《灵飞经》*5<br>3.饮食控制。<br>4.静坐<br>5.争取晚上十点前上床休息。</p>
+<p>这段旅程，有雪源兄，卓航兄，小师妹，不会孤独。<br>2022年2月2日09:30:05  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/02/%E7%BB%93%E6%9D%9F%E4%BC%91%E5%81%87%EF%BC%8C%E7%BB%A7%E7%BB%AD%E6%88%98%E6%96%97%EF%BC%81/" data-id="ckz5mwx59000cmkui3lnqaoq1" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-记壬寅年大年初一" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/myblog.github.io/2022/02/01/%E8%AE%B0%E5%A3%AC%E5%AF%85%E5%B9%B4%E5%A4%A7%E5%B9%B4%E5%88%9D%E4%B8%80/" class="article-date">
@@ -101,7 +221,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/01/%E8%AE%B0%E5%A3%AC%E5%AF%85%E5%B9%B4%E5%A4%A7%E5%B9%B4%E5%88%9D%E4%B8%80/" data-id="ckz474yxb0001tgui6b6qceu6" class="article-share-link">Share</a>
+      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/01/%E8%AE%B0%E5%A3%AC%E5%AF%85%E5%B9%B4%E5%A4%A7%E5%B9%B4%E5%88%9D%E4%B8%80/" data-id="ckz5mwx5a000emkuichqm0sy7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -140,7 +260,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/01/%E7%AE%97%E6%B3%95-%E5%9B%BE-1/" data-id="ckz474yx70000tgui8emd3xie" class="article-share-link">Share</a>
+      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/01/%E7%AE%97%E6%B3%95-%E5%9B%BE-1/" data-id="ckz5mwx56000bmkuiazx6behl" class="article-share-link">Share</a>
       
       
     </footer>
@@ -178,7 +298,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/01/%E5%A6%82%E6%9E%9C%E6%88%91%E7%BB%88%E5%B0%86%E4%B8%80%E4%B8%AA%E4%BA%BA%E8%B5%B0%E4%B8%8A%E8%BF%99%E6%9D%A1%E8%B7%AF/" data-id="ckz2xayso0007ngui4nlhbvhc" class="article-share-link">Share</a>
+      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/01/%E5%A6%82%E6%9E%9C%E6%88%91%E7%BB%88%E5%B0%86%E4%B8%80%E4%B8%AA%E4%BA%BA%E8%B5%B0%E4%B8%8A%E8%BF%99%E6%9D%A1%E8%B7%AF/" data-id="ckz5mwx510008mkuidsce75qs" class="article-share-link">Share</a>
       
       
     </footer>
@@ -215,7 +335,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/01/%E6%88%91%E7%BB%88%E7%A9%B6%E6%98%AF%E7%97%85%E4%BA%86/" data-id="ckz2xayso0006ngui5io701pf" class="article-share-link">Share</a>
+      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/01/%E6%88%91%E7%BB%88%E7%A9%B6%E6%98%AF%E7%97%85%E4%BA%86/" data-id="ckz5mwx530009mkuihqvobymm" class="article-share-link">Share</a>
       
       
     </footer>
@@ -252,7 +372,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/01/31/%E8%AE%B0%E5%BB%BF%E5%85%AB%E5%96%9C%E9%81%87%E4%BA%8C%E7%9C%9F%E4%BA%BA/" data-id="ckz2xayso000angui942fe32p" class="article-share-link">Share</a>
+      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/01/31/%E8%AE%B0%E5%BB%BF%E5%85%AB%E5%96%9C%E9%81%87%E4%BA%8C%E7%9C%9F%E4%BA%BA/" data-id="ckz5mwx5c000fmkui44sxf9yd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -292,7 +412,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/01/30/%E7%83%9F%E3%80%81%E9%85%92%E3%80%81%E8%8C%B6%E3%80%81%E6%A3%8B/" data-id="ckz2xayso0008ngui48n32eyx" class="article-share-link">Share</a>
+      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/01/30/%E7%83%9F%E3%80%81%E9%85%92%E3%80%81%E8%8C%B6%E3%80%81%E6%A3%8B/" data-id="ckz5mwx55000amkuiah3f5t3p" class="article-share-link">Share</a>
       
       
     </footer>
@@ -336,287 +456,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/01/28/2020-1-28-%E7%AC%94%E8%AE%B0/" data-id="ckz2xays90001ngui2le38nlt" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2022-1-28-任务" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/myblog.github.io/2022/01/28/2022-1-28-%E4%BB%BB%E5%8A%A1/" class="article-date">
-  <time datetime="2022-01-28T02:06:14.000Z" itemprop="datePublished">2022-01-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/myblog.github.io/2022/01/28/2022-1-28-%E4%BB%BB%E5%8A%A1/">2022-1-28-任务</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>2022年1月28日10:07:47<br>大概讲述一下接下来来要准备的赛事有：<br>蓝桥杯4月9日<br>腾讯绿洲启元5月15日<br>互联网+大赛 这个时间不太清楚<br>比赛项目还是挺多的。<br>绿洲编辑器拖了挺久还没有学，今天一次性学完他吧<br>练字，锻炼是每天都要坚持的，今天临摹的还是《灵飞经》<br>今日任务：<br>绿洲编辑器<br>临《灵飞经》<br>锻炼</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/01/28/2022-1-28-%E4%BB%BB%E5%8A%A1/" data-id="ckz2xayso0004ngui935og366" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-美好的开始" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/myblog.github.io/2022/01/27/%E7%BE%8E%E5%A5%BD%E7%9A%84%E5%BC%80%E5%A7%8B/" class="article-date">
-  <time datetime="2022-01-27T15:27:29.000Z" itemprop="datePublished">2022-01-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/myblog.github.io/2022/01/27/%E7%BE%8E%E5%A5%BD%E7%9A%84%E5%BC%80%E5%A7%8B/">美好的开始</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="丰富的一天"><a href="#丰富的一天" class="headerlink" title="丰富的一天"></a>丰富的一天</h1><p>2022年1月27日23:29:19</p>
-<p>今天是回到乡下的第一天，是道友相互打开记录学习的第一天，也是使用博客的第一天。<br>感受到了与往循环反复的生活所不同的新鲜感。<br>今天的排序算法学到我差点脑袋短路。尽管脑袋发胀，但是在算法的演绎中感受到了编程的快乐。每当茅塞顿开时，我都由衷赞叹“妙啊！”。用精简的算法体现思想是很美的。怪不得有人称赞雷军写的代码像诗一样。<br>今天还访问了旧时友人的家，已经多年未见了，感觉大家都变了很多，但是又感觉没有什么变化哈哈哈。<br>夜晚，也是我最期待的《一梦江湖》金陵奇妙会。晚上7时，游戏里面的灯火随着欢快的背景音乐准时亮起，代入感十足。接着和玩伴照着打卡手册完成各种有趣小游戏：吃烧烤、尝元宵、比拼快乐水。也少不了放花灯、飞灯、河灯，贴春联……这该是很多人梦想的江湖吧。<br>要事把我从游戏中拽回，两三台摩托车杀入山林，驮着鸡笼的大卡车在前开道。原来是农务。做完后已经满山鸡羽毛，回程的路上，漫天的星河，仿佛还是游戏中的金陵，只是少了飞灯。冷冽的风吹打着面庞。颠簸的山路，漆黑的山林，使路程显得惊险刺激。<br>海盗一般的旅程。</p>
-<p>因为有人监督了，所以还是抽空临了一下《灵飞经》。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/01/27/%E7%BE%8E%E5%A5%BD%E7%9A%84%E5%BC%80%E5%A7%8B/" data-id="ckz2xayso0009nguiayot9nor" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-python-排序算法" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/myblog.github.io/2022/01/27/python-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="article-date">
-  <time datetime="2022-01-27T02:08:59.000Z" itemprop="datePublished">2022-01-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/myblog.github.io/2022/01/27/python-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">python 排序算法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>2022-01-27 10:08:59</p>
-<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><pre><code>A = [64, 25, 12, 22, 11] #指定一个数列
-
-for i in range(len(A)): 
-    
-
-    min_idx = i #默认最小值的索引是第一个
-    for j in range(i+1, len(A)): 
-        if A[min_idx] &gt; A[j]: #若在后面找到比第一个小的就替换
-            min_idx = j 
-                
-    A[i], A[min_idx] = A[min_idx], A[i] #交换值
-</code></pre>
-<h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><pre><code>A = [12, 11, 13, 5, 6]
-for i in range(1, len(A)):
-    key = A[i]
-    j = i - 1
-    while j &gt;= 0 and key &lt; A[j]:
-        A[j + 1] = A[j]
-        j -= 1
-    A[j + 1] = key
-print(A)
-</code></pre>
-<h2 id="希尔排序（递减增量排序算法）"><a href="#希尔排序（递减增量排序算法）" class="headerlink" title="希尔排序（递减增量排序算法）"></a>希尔排序（递减增量排序算法）</h2><pre><code>A=[12, 34, 54, 2, 3]
-n = len(A)
-gap = int(n/2)
-while gap &gt; 0: 
-
-    for i in range(gap,n): 
-
-        temp = A[i] 
-        j = i 
-        while  j &gt;= gap and A[j-gap] &gt;temp: 
-            A[j] = A[j-gap] 
-            j -= gap 
-        A[j] = temp 
-    gap = int(gap/2)
-print(A)
-</code></pre>
-<p>希尔排序，我看了很多种解释，经过演绎才明白他的原理哈哈哈。它是插入排序的升级版。解决的问题是，插入排序只能一步步移动，移动得远的话就很不方便。</p>
-<p>在我的理解下，希尔排序是隔一段相同的距离A便取一个数作为一个子数列，起点不同的话，就可以把原始要排列的数组拆分成多个子数列，分别对每个子数列使用插入排序。排玩之后，在不断缩小开始的距离A，这里的代码里面采用的方法是不断除以2.当最终A为1的时候其实就是最后再对多次操作后的数列进行一次插入排列。</p>
-<p>我是看了这位大佬的文章明白的：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/409836908">https://zhuanlan.zhihu.com/p/409836908</a></p>
-<h2 id="归并排列"><a href="#归并排列" class="headerlink" title="归并排列"></a>归并排列</h2><p>菜鸟教程的代码目标（自上向底，接下来再讲分类）<br>    def merge(arr, l, m, r):<br>        n1 = m - l + 1<br>        n2 = r - m</p>
-<pre><code>    # 创建临时数组
-    L = [0] * (n1)
-    R = [0] * (n2)
-
-    # 拷贝数据到临时数组 arrays L[] 和 R[] 
-    for i in range(0, n1):
-        L[i] = arr[l + i]
-
-    for j in range(0, n2):
-        R[j] = arr[m + 1 + j]
-
-        # 归并临时数组到 arr[l..r]
-    i = 0  # 初始化第一个子数组的索引
-    j = 0  # 初始化第二个子数组的索引
-    k = l  # 初始归并子数组的索引
-
-    while i &lt; n1 and j &lt; n2:
-        if L[i] &lt;= R[j]:
-            arr[k] = L[i]
-            i += 1
-        else:
-            arr[k] = R[j]
-            j += 1
-        k += 1
-
-    # 拷贝 L[] 的保留元素
-    while i &lt; n1:
-        arr[k] = L[i]
-        i += 1
-        k += 1
-
-    # 拷贝 R[] 的保留元素
-    while j &lt; n2:
-        arr[k] = R[j]
-        j += 1
-        k += 1
-
-
-def mergeSort(arr, l, r):
-    if l &lt; r:
-        m = int((l + (r - 1)) / 2)
-
-        mergeSort(arr, l, m)
-        mergeSort(arr, m + 1, r)
-        merge(arr, l, m, r)
-
-
-arr = [12, 11, 13, 5, 6, 7]
-n = len(arr)
-print(&quot;给定的数组&quot;)
-for i in range(n):
-    print(&quot;%d&quot; % arr[i]),
-
-mergeSort(arr, 0, n - 1)
-print(&quot;\n\n排序后的数组&quot;)
-for i in range(n):
-    print(&quot;%d&quot; % arr[i]),
-</code></pre>
-<p>理解这个排序的算法也费了我好些功夫<br>再解释这个算法的思想和代码实现之前，先介绍一下，归并算法有三种：<br>原地归并<br>自上而底的归并<br>自底向上的归并  </p>
-<p>原地归并我还不会，时间关系……  </p>
-<p>自上向底的归并，思想上是把原序列不断二分到2个一组，然后组内归并，归并完之后合并为一个整体，和隔壁的另一个整体组成一个新的组，然后再归并，不断操作，最终得到的是两个排好序的序列，最后一次归并即可 </p>
-<p>自底向上的归并则反过来，两个两个凑成一组归并，归并完后看成一个整体，和隔壁的组成一组归并，最后回到顶层。</p>
-<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><p>这也是菜鸟教程的快速排序的目标：</p>
-<pre><code>def partition(arr, low, high):
-    i = (low - 1)  # 最小元素索引
-    pivot = arr[high]
-
-    for j in range(low, high):
-
-        # 当前元素小于或等于 pivot
-        if arr[j] &lt;= pivot:
-            i = i + 1
-            arr[i], arr[j] = arr[j], arr[i]
-
-    arr[i + 1], arr[high] = arr[high], arr[i + 1]
-    return (i + 1)
-
-
-# arr[] --&gt; 排序数组
-# low  --&gt; 起始索引
-# high  --&gt; 结束索引
-
-# 快速排序函数
-def quickSort(arr, low, high):
-    if low &lt; high:
-        pi = partition(arr, low, high)
-
-        quickSort(arr, low, pi - 1)
-        quickSort(arr, pi + 1, high)
-
-
-arr = [10, 7,234,4,12,42,45, 8, 9,4 ,51, 5]
-n = len(arr)
-quickSort(arr, 0, n - 1)
-print(&quot;排序后的数组:&quot;)
-for i in range(n):
-    print(&quot;%d&quot; % arr[i]),
-</code></pre>
-<p> 这个快速排序也花了点功夫理解。  </p>
-<p> 思想上就是选一个基准，把小于他的丢在左边，大于他的放在右边。不断递归   </p>
-<p> 以上代码上的操作是把最靠右边的作为基准，接着比他小的放在最左边排着队，最后把最右边那个基准调到左边比他小的那群数的最右边挨着，接着下一步递归。</p>
-<p> 快要累死了，再学完今天最后一个排序算法</p>
-<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p> 还好这个简单一点，一下是菜鸟教程的代码模板：</p>
-<pre><code>def bubbleSort(arr):
-    n = len(arr)
-
-    # 遍历所有数组元素
-    for i in range(n):
-
-        # Last i elements are already in place
-        for j in range(0, n-i-1):
-
-            if arr[j] &gt; arr[j+1] :
-                arr[j], arr[j+1] = arr[j+1], arr[j]
-
-arr = [64, 34, 25, 12, 22, 11, 90]
-
-bubbleSort(arr)
-
-print (&quot;排序后的数组:&quot;)
-for i in range(len(arr)):
-    print (&quot;%d&quot; %arr[i]),
-</code></pre>
-<p>有一个技巧点提一下，就是冒泡比较的最右端不断通过n-i-1递减，因为前面冒泡操作已经排好了，右边的几个是确定排好的，不需要再比较了。</p>
-<p>好啦，今天的排序算法学习完成，完结撒花！<br>2022年1月27日17:50:27</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/01/27/python-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" data-id="ckz2xays90002ngui2ee17m2v" class="article-share-link">Share</a>
+      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/01/28/2020-1-28-%E7%AC%94%E8%AE%B0/" data-id="ckz5mwx4k0000mkui5s9ygqng" class="article-share-link">Share</a>
       
       
     </footer>
@@ -662,23 +502,23 @@ for i in range(len(arr)):
       <ul>
         
           <li>
+            <a href="/myblog.github.io/2022/02/02/2022-2-2-%E5%9B%9E%E9%A1%BE/">2022-2-2-回顾</a>
+          </li>
+        
+          <li>
+            <a href="/myblog.github.io/2022/02/02/2022-2-2-%E7%AC%94%E8%AE%B0-%E7%AE%97%E6%B3%95-%E5%9B%BE/">2022-2-2-笔记-算法-图</a>
+          </li>
+        
+          <li>
+            <a href="/myblog.github.io/2022/02/02/%E7%BB%93%E6%9D%9F%E4%BC%91%E5%81%87%EF%BC%8C%E7%BB%A7%E7%BB%AD%E6%88%98%E6%96%97%EF%BC%81/">结束休假，继续前进吧。</a>
+          </li>
+        
+          <li>
             <a href="/myblog.github.io/2022/02/01/%E8%AE%B0%E5%A3%AC%E5%AF%85%E5%B9%B4%E5%A4%A7%E5%B9%B4%E5%88%9D%E4%B8%80/">记壬寅年大年初一</a>
           </li>
         
           <li>
             <a href="/myblog.github.io/2022/02/01/%E7%AE%97%E6%B3%95-%E5%9B%BE-1/">算法-图-1</a>
-          </li>
-        
-          <li>
-            <a href="/myblog.github.io/2022/02/01/%E5%A6%82%E6%9E%9C%E6%88%91%E7%BB%88%E5%B0%86%E4%B8%80%E4%B8%AA%E4%BA%BA%E8%B5%B0%E4%B8%8A%E8%BF%99%E6%9D%A1%E8%B7%AF/">如果我终将一个人走上这条路</a>
-          </li>
-        
-          <li>
-            <a href="/myblog.github.io/2022/02/01/%E6%88%91%E7%BB%88%E7%A9%B6%E6%98%AF%E7%97%85%E4%BA%86/">我终究是病了</a>
-          </li>
-        
-          <li>
-            <a href="/myblog.github.io/2022/01/31/%E8%AE%B0%E5%BB%BF%E5%85%AB%E5%96%9C%E9%81%87%E4%BA%8C%E7%9C%9F%E4%BA%BA/">记廿八喜遇二真人</a>
           </li>
         
       </ul>
