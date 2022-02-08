@@ -5,17 +5,17 @@
   
 
   
-  <title>算法-图-1 | Hexo</title>
+  <title>2022-2-8-修行 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="2022年2月1日21:51:43四种重要的图模型：无向图（简单连接）有向图（连接有方向性）加权图（连接带有权值）加权有向图（连接既有方向性又带有权值）图的定义：图是由一组顶点和一组能够将两个顶点相连的边组成的。一般使用0至V-1来表示一张含有V个顶点的图中的各个顶点。用V-W或者W-V表示连接他们的边。特殊的图自环：一条连接一个顶点和其自身的边连接同一对顶点的两条边称为平行边。多重图：含有平行边">
+  <meta name="description" content="因为前几天睡饱了，今天起得早些。1.会议讲稿  （√）2.朗读，气息练习（√）3.科四刷学时  （约考时间已过，不弄了）4.算法最短路径  （√）5.绿洲编辑器一个案例  （√）6.《游戏开发梦工厂》  （√）“晚安 森林 晚安 湖泊 晚安 人世间每一次的星辰闪烁 我和沉默的万物说晚安 就是不和你说”——《Sacred Play Secret Place》">
 <meta property="og:type" content="article">
-<meta property="og:title" content="算法-图-1">
-<meta property="og:url" content="https://fengbinlin.github.io/myblog.github.io/2022/02/01/%E7%AE%97%E6%B3%95-%E5%9B%BE-1/index.html">
+<meta property="og:title" content="2022-2-8-修行">
+<meta property="og:url" content="https://fengbinlin.github.io/myblog.github.io/2022/02/08/2022-2-8-%E4%BF%AE%E8%A1%8C/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="2022年2月1日21:51:43四种重要的图模型：无向图（简单连接）有向图（连接有方向性）加权图（连接带有权值）加权有向图（连接既有方向性又带有权值）图的定义：图是由一组顶点和一组能够将两个顶点相连的边组成的。一般使用0至V-1来表示一张含有V个顶点的图中的各个顶点。用V-W或者W-V表示连接他们的边。特殊的图自环：一条连接一个顶点和其自身的边连接同一对顶点的两条边称为平行边。多重图：含有平行边">
+<meta property="og:description" content="因为前几天睡饱了，今天起得早些。1.会议讲稿  （√）2.朗读，气息练习（√）3.科四刷学时  （约考时间已过，不弄了）4.算法最短路径  （√）5.绿洲编辑器一个案例  （√）6.《游戏开发梦工厂》  （√）“晚安 森林 晚安 湖泊 晚安 人世间每一次的星辰闪烁 我和沉默的万物说晚安 就是不和你说”——《Sacred Play Secret Place》">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-02-01T10:16:20.000Z">
-<meta property="article:modified_time" content="2022-02-01T13:52:35.104Z">
+<meta property="article:published_time" content="2022-02-07T23:48:59.000Z">
+<meta property="article:modified_time" content="2022-02-08T14:01:12.377Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -66,10 +66,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-算法-图-1" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-2022-2-8-修行" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/myblog.github.io/2022/02/01/%E7%AE%97%E6%B3%95-%E5%9B%BE-1/" class="article-date">
-  <time datetime="2022-02-01T10:16:20.000Z" itemprop="datePublished">2022-02-01</time>
+    <a href="/myblog.github.io/2022/02/08/2022-2-8-%E4%BF%AE%E8%A1%8C/" class="article-date">
+  <time datetime="2022-02-07T23:48:59.000Z" itemprop="datePublished">2022-02-08</time>
 </a>
     
   </div>
@@ -80,7 +80,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      算法-图-1
+      2022-2-8-修行
     </h1>
   
 
@@ -88,14 +88,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>2022年2月1日21:51:43<br>四种重要的图模型：<br>无向图（简单连接）<br>有向图（连接有方向性）<br>加权图（连接带有权值）<br>加权有向图（连接既有方向性又带有权值）<br>图的定义：图是由一组顶点和一组能够将两个顶点相连的边组成的。<br>一般使用0至V-1来表示一张含有V个顶点的图中的各个顶点。<br>用V-W或者W-V表示连接他们的边。<br>特殊的图<br>自环：一条连接一个顶点和其自身的边<br>连接同一对顶点的两条边称为平行边。<br>多重图：含有平行边的图<br>简单图：没有平行边和自环的图<br>路径是由边顺序连接的一系列顶点。<br>简单路径：一条没有重复顶点的路径<br>环：一条至少含有一条边且起点和终点相同的路径。<br>简单环：不含有重复顶点和边的环。<br>路径/环的长度：其中包含的边数。  </p>
-<p>连通图：任意一个顶点都存在一条路径到达另一个任意顶点<br>非连通图由若干连通部分组成，他们都是极大连通子图<br>树：无环连通图<br>森林：互补相连的树组成的集合称为森林。<br>连通图的生成树：含有所有顶点且是一棵树  </p>
-<p>理解算法最好的方法是在一个简单的例子中跟踪它的行为。  </p>
+        <p>因为前几天睡饱了，今天起得早些。<br>1.会议讲稿  （√）<br>2.朗读，气息练习（√）<br>3.科四刷学时  （约考时间已过，不弄了）<br>4.算法最短路径  （√）<br>5.绿洲编辑器一个案例  （√）<br>6.《游戏开发梦工厂》  （√）<br>“晚安 森林 晚安 湖泊 晚安 人世间每一次的星辰闪烁 我和沉默的万物说晚安 就是不和你说”——《Sacred Play Secret Place》</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/01/%E7%AE%97%E6%B3%95-%E5%9B%BE-1/" data-id="ckze7guxi000h9ouia4u0evbv" class="article-share-link">Share</a>
+      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/08/2022-2-8-%E4%BF%AE%E8%A1%8C/" data-id="ckze7guxb00089oui8is12djh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -104,19 +102,10 @@
     
 <nav id="article-nav">
   
-    <a href="/myblog.github.io/2022/02/01/%E8%AE%B0%E5%A3%AC%E5%AF%85%E5%B9%B4%E5%A4%A7%E5%B9%B4%E5%88%9D%E4%B8%80/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          记壬寅年大年初一
-        
-      </div>
-    </a>
   
-  
-    <a href="/myblog.github.io/2022/02/01/%E5%A6%82%E6%9E%9C%E6%88%91%E7%BB%88%E5%B0%86%E4%B8%80%E4%B8%AA%E4%BA%BA%E8%B5%B0%E4%B8%8A%E8%BF%99%E6%9D%A1%E8%B7%AF/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/myblog.github.io/2022/02/07/2022-2-7-%E4%BF%AE%E8%A1%8C/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">如果我终将一个人走上这条路</div>
+      <div class="article-nav-title">2022-2-7-修行</div>
     </a>
   
 </nav>
