@@ -64,6 +64,345 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-寻找矩形框" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/myblog.github.io/2022/03/06/%E5%AF%BB%E6%89%BE%E7%9F%A9%E5%BD%A2%E6%A1%86/" class="article-date">
+  <time datetime="2022-03-06T03:58:52.000Z" itemprop="datePublished">2022-03-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/myblog.github.io/2022/03/06/%E5%AF%BB%E6%89%BE%E7%9F%A9%E5%BD%A2%E6%A1%86/">寻找矩形框</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>第一周周结<br>实现思路：</p>
+<ol>
+<li>   将图片转换成HSV颜色空间，筛选出蓝色，得到二值图（见图1）</li>
+<li>   根据轮廓绘制小矩形（见图2）</li>
+<li>   选择合适的小矩形绘制最终的矩形框（见图3）<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">image_path = <span class="string">r&quot;E:\blue.jpg&quot;</span>  <span class="comment"># 图片路径</span></span><br><span class="line">img = cv2.imread(image_path)</span><br><span class="line"><span class="comment">#转化成HSV颜色空间</span></span><br><span class="line">hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)</span><br><span class="line"><span class="comment">#筛选蓝色，得到二值图</span></span><br><span class="line">mask = cv2.inRange(hsv, (<span class="number">100</span>,<span class="number">43</span>,<span class="number">46</span>), (<span class="number">124</span>,<span class="number">255</span>,<span class="number">255</span>))</span><br><span class="line"><span class="comment">#绘制框的图像</span></span><br><span class="line">imgResult = cv2.copyTo(img,mask)</span><br><span class="line">img_be = cv2.copyTo(img,mask)</span><br><span class="line"><span class="comment">#设置核</span></span><br><span class="line">kernel = np.ones((<span class="number">6</span>,<span class="number">6</span>),np.uint8)</span><br><span class="line"><span class="comment">#开运算</span></span><br><span class="line"><span class="comment"># op =  cv2.MORPH_OPEN 进行开运算，指的是先进行腐蚀操作，再进行膨胀操作</span></span><br><span class="line"><span class="comment"># op = cv2.MORPH_CLOSE 进行闭运算， 指的是先进行膨胀操作，再进行腐蚀操作</span></span><br><span class="line"><span class="comment"># 开运算：表示的是先进行腐蚀，再进行膨胀操作</span></span><br><span class="line"><span class="comment"># 闭运算：表示先进行膨胀操作，再进行腐蚀操作</span></span><br><span class="line">opening = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)</span><br><span class="line"><span class="comment">#寻找轮廓</span></span><br><span class="line">contours, hierarchy = cv2.findContours(opening,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)</span><br><span class="line"><span class="comment">#矩形列表</span></span><br><span class="line">box_ji=[]</span><br><span class="line"><span class="comment">#根据轮廓绘制矩形</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(contours)):</span><br><span class="line">    area = cv2.contourArea(contours[i])</span><br><span class="line">    x, y, w, h = cv2.boundingRect(contours[i])</span><br><span class="line">    cv2.rectangle(img, (x, y), (x+w, y+h), (<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>), <span class="number">2</span>)</span><br><span class="line">    rect = cv2.minAreaRect(contours[i]) <span class="comment">#提取矩形坐标</span></span><br><span class="line">    box = cv2.boxPoints(rect)</span><br><span class="line">    box = np.int0(box)</span><br><span class="line">    angle =<span class="built_in">abs</span>(<span class="built_in">abs</span>(rect[<span class="number">2</span>])-<span class="number">45</span>)</span><br><span class="line">    length = <span class="built_in">max</span>(rect[<span class="number">1</span>])</span><br><span class="line">    width = <span class="built_in">min</span>(rect[<span class="number">1</span>])</span><br><span class="line">    cv2.drawContours(img, [box], <span class="number">0</span>, (<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), <span class="number">2</span>)</span><br><span class="line">    box_ji.append(box)</span><br><span class="line"><span class="comment">#收集长度，根据长度进行匹配合适连接在一起的两个矩形</span></span><br><span class="line">length_ji=[]</span><br><span class="line"><span class="keyword">for</span> b <span class="keyword">in</span> box_ji:</span><br><span class="line">    length_ji.append(b[<span class="number">2</span>][<span class="number">1</span>]-b[<span class="number">1</span>][<span class="number">1</span>])</span><br><span class="line"><span class="comment">#如果长度差在0.3之间，则匹配成功</span></span><br><span class="line">ans_ji=[]</span><br><span class="line"><span class="keyword">for</span> l <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(length_ji)-<span class="number">1</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(l+<span class="number">1</span>,<span class="built_in">len</span>(length_ji)):</span><br><span class="line">        <span class="keyword">if</span> -<span class="number">0.3</span>&lt;=length_ji[l]-length_ji[j]&lt;=<span class="number">0.3</span>:</span><br><span class="line">            ans_ji.append((l,j))</span><br><span class="line"><span class="comment">#选择作为框的4个点，选择的顺序和矩形的边的位置和矩形的x，y坐标有关，为的是框选出最大的区域</span></span><br><span class="line">kuan=[]</span><br><span class="line"><span class="keyword">for</span> a <span class="keyword">in</span> ans_ji:</span><br><span class="line">    <span class="keyword">if</span> box_ji[a[<span class="number">0</span>]][<span class="number">0</span>][<span class="number">0</span>]&lt;box_ji[a[<span class="number">1</span>]][<span class="number">2</span>][<span class="number">0</span>]:</span><br><span class="line">        kuan.append([<span class="built_in">list</span>(box_ji[a[<span class="number">0</span>]][<span class="number">0</span>]),<span class="built_in">list</span>(box_ji[a[<span class="number">0</span>]][<span class="number">3</span>]),<span class="built_in">list</span>(box_ji[a[<span class="number">1</span>]][<span class="number">2</span>]),<span class="built_in">list</span>(box_ji[a[<span class="number">1</span>]][<span class="number">1</span>])])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        kuan.append([<span class="built_in">list</span>(box_ji[a[<span class="number">0</span>]][<span class="number">1</span>]), <span class="built_in">list</span>(box_ji[a[<span class="number">0</span>]][<span class="number">2</span>]), <span class="built_in">list</span>(box_ji[a[<span class="number">1</span>]][<span class="number">3</span>]), <span class="built_in">list</span>(box_ji[a[<span class="number">1</span>]][<span class="number">0</span>])])</span><br><span class="line"><span class="comment">#绘制矩形</span></span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span>  kuan:</span><br><span class="line">    kuang_=cv2.rectangle(imgResult, k[<span class="number">1</span>], k[<span class="number">3</span>],  (<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), thickness=<span class="number">1</span>, lineType=<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cv2.imshow(<span class="string">&quot;begin&quot;</span>, img_be)</span><br><span class="line">cv2.imshow(<span class="string">&quot;Mask&quot;</span>, mask)</span><br><span class="line">cv2.imshow(<span class="string">&quot;kuang&quot;</span>, img)</span><br><span class="line">cv2.imshow(<span class="string">&quot;final&quot;</span>,kuang_)</span><br><span class="line">cv2.waitKey(<span class="number">0</span>)</span><br><span class="line">cv2.destroyAllWindows()</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><img src="/myblog.github.io/2022/03/06/%E5%AF%BB%E6%89%BE%E7%9F%A9%E5%BD%A2%E6%A1%86/%E5%9B%BE1.png" alt="图1"><br><img src="/myblog.github.io/2022/03/06/%E5%AF%BB%E6%89%BE%E7%9F%A9%E5%BD%A2%E6%A1%86/%E5%9B%BE2.jpg" alt="图2"><br><img src="/myblog.github.io/2022/03/06/%E5%AF%BB%E6%89%BE%E7%9F%A9%E5%BD%A2%E6%A1%86/%E5%9B%BE3.png" alt="图3"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/03/06/%E5%AF%BB%E6%89%BE%E7%9F%A9%E5%BD%A2%E6%A1%86/" data-id="cl0erl6ko000s50uidbt8bok4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2022-3-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/myblog.github.io/2022/03/01/2022-3-1/" class="article-date">
+  <time datetime="2022-02-28T23:49:21.000Z" itemprop="datePublished">2022-03-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/myblog.github.io/2022/03/01/2022-3-1/">2022-3-1</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.python基础知识<br>2.职业构思<br>3.flask登录系统</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/03/01/2022-3-1/" data-id="cl0erl6kl000m50ui35s3f82a" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2022-2-28" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/myblog.github.io/2022/02/28/2022-2-28/" class="article-date">
+  <time datetime="2022-02-28T14:33:23.000Z" itemprop="datePublished">2022-02-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/myblog.github.io/2022/02/28/2022-2-28/">2022-2-28</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>饮食控制（√）<br>身体锻炼（√）<br>打印课程表（√）<br>flask信息传递（√）<br>数论学完（把能用得上的学完了）</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/28/2022-2-28/" data-id="cl0erl6kg000g50ui11edeaib" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2022-2-27" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/myblog.github.io/2022/02/27/2022-2-27/" class="article-date">
+  <time datetime="2022-02-27T01:08:26.000Z" itemprop="datePublished">2022-02-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/myblog.github.io/2022/02/27/2022-2-27/">2022-2-27</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>又一位战友倒下，此行将更加孤独。<br>1.flask学习1/2（√）<br>2.身体锻炼（拉伸）<br>3.绿洲思考（√）<br>4.数论初步（完成了一部分）</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/27/2022-2-27/" data-id="cl0erl6kf000f50ui3hlfdpsd" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2022-2-26" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/myblog.github.io/2022/02/26/2022-2-26/" class="article-date">
+  <time datetime="2022-02-25T23:49:43.000Z" itemprop="datePublished">2022-02-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/myblog.github.io/2022/02/26/2022-2-26/">2022-2-26</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.身体锻炼（√）<br>2.计划部署（物联网，绿洲，pat，蓝桥）（数论，离散数学，算法小抄）<br>3.加入课堂群（√）<br>4.灵飞经<br>5.静坐</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/26/2022-2-26/" data-id="cl0erl6kf000e50uiaw2s2tpb" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2022-2-25" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/myblog.github.io/2022/02/25/2022-2-25/" class="article-date">
+  <time datetime="2022-02-25T01:08:13.000Z" itemprop="datePublished">2022-02-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/myblog.github.io/2022/02/25/2022-2-25/">2022-2-25</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.pat刷完剩下50题（√）<br>2.写游戏策划案（√）<br>3.计划部署（√）</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/25/2022-2-25/" data-id="cl0erl6ke000d50uiaj8e2kfq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2022-2-24" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/myblog.github.io/2022/02/24/2022-2-24/" class="article-date">
+  <time datetime="2022-02-24T03:49:19.000Z" itemprop="datePublished">2022-02-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/myblog.github.io/2022/02/24/2022-2-24/">2022-2-24</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>“华枝春满 天心月圆”<br>1.pat题库80道算法题（找到方案不要纠缠）<br>2.灵飞经<br>3.规划游戏</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/24/2022-2-24/" data-id="cl0erl6ke000c50uihqn0419h" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2022-2-23" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/myblog.github.io/2022/02/23/2022-2-23/" class="article-date">
+  <time datetime="2022-02-23T04:14:34.000Z" itemprop="datePublished">2022-02-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/myblog.github.io/2022/02/23/2022-2-23/">2022-2-23</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>‘一切有为法，如梦幻泡影。如露亦如电，应作如是观。’<br>1.写完蓝桥第三期（√）<br>2.加入班级，购买书籍（√）<br>3.灵飞经（√）</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/23/2022-2-23/" data-id="cl0erl6kd000b50ui3iiy867m" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2022-2-20" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/myblog.github.io/2022/02/20/2022-2-20/" class="article-date">
+  <time datetime="2022-02-20T02:23:49.000Z" itemprop="datePublished">2022-02-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/myblog.github.io/2022/02/20/2022-2-20/">2022-2-20</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.阅读《如何唤醒数学脑》<br>2.算法题*2<br>3.灵飞经</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/20/2022-2-20/" data-id="cl0erl6kd000a50ui3vna1qjr" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-面向对象的三大特性" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/myblog.github.io/2022/02/19/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/" class="article-date">
@@ -94,343 +433,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/19/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/" data-id="ckztonysi000usgui6ztw5cfs" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-面向对象和面向过程的区别" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/myblog.github.io/2022/02/19/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%92%8C%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB/" class="article-date">
-  <time datetime="2022-02-19T07:02:02.000Z" itemprop="datePublished">2022-02-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/myblog.github.io/2022/02/19/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%92%8C%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB/">面向对象和面向过程的区别</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>查阅得到的资料：<br>面向过程”(Procedure Oriented)是一种以过程为中心的编程思想。<br>面向对象程序设计以对象为核心，该方法认为程序由一系列对象组成。<br>面向过程：注重做的步骤和过程<br>面向对象：注重是谁做<br>面向过程：吃（狗，屎）<br>面向对象：狗（吃）屎<br>面向过程：编年体<br>面向过程：纪传体<br>例子：<br>用两种思想同时实现一个功能：5个人A、B、C、D、E，分别有性别，年龄两个属性，现在A，B属于YY家族，CDE属于JJ家族。实现其中一个功能：让家族有比较出年龄最小的和年龄最大的人，统计出男性的人数和女性的人数。  </p>
-<p>用面向过程写：<br>age_A=XXX<br>age_B=XXX<br>.<br>.<br>.<br>sex_A=0(0,1代表性别)<br>sex_B=1<br>.<br>.<br>.<br>算法1：在A、B中求出要求出的量<br>算法2：在C、E、D中求出要求出的量  </p>
-<p>用面向对象写：<br>建立人的类：<br>属性1：年龄<br>属性2：性别<br>建立家庭类：<br>方法1：添加人<br>方法2：比较年龄最大的人<br>方法3：比较年龄最小的人<br>…<br>A=人类（性别、年龄）<br>B=人类（性别、年龄）<br>…<br>YY=家庭（）<br>YY.添加人（A）<br>YY.添加人（B）<br>…<br>YY.比较年龄最大的人<br>…  </p>
-<p>比较来看：<br>面向过程要什么就直接写什么，要多少个变量就直接申请多少个变量，直接干净。<br>面向对象是把功能差不多的写成一个“模块”，这个模块包含相同的方法和属性，需要就调用，并用这些模块彼此配合实现功能。<br>面向过程的没有这种“模块”，万一我不想要年龄这个属性了，或者给你加几个条件，那所以设计年龄的变量都要重新写一遍，面向对象就只用在人类的属性更改一下即可。在庞大的工程里面，这是很方便维护的。<br>而且面向对象里面也会有按照过程一步步执行的功能，不能把两者完全割裂开来。  </p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/19/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%92%8C%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB/" data-id="ckztonysh000tsguig6m0bqdw" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2022-2-19" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/myblog.github.io/2022/02/19/2022-2-19/" class="article-date">
-  <time datetime="2022-02-19T01:33:20.000Z" itemprop="datePublished">2022-02-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/myblog.github.io/2022/02/19/2022-2-19/">2022-2-19</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1.了解物联网大赛和所需知识（√）<br>2.了解转专业事宜（√）<br>3.算法题（）<br>4.转专业计划部署（√）<br>5.灵飞经  </p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/19/2022-2-19/" data-id="ckztonyrz0007sgui1v1n5ewv" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2022-2-18-修行" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/myblog.github.io/2022/02/18/2022-2-18-%E4%BF%AE%E8%A1%8C/" class="article-date">
-  <time datetime="2022-02-18T01:58:32.000Z" itemprop="datePublished">2022-02-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/myblog.github.io/2022/02/18/2022-2-18-%E4%BF%AE%E8%A1%8C/">2022-2-18-修行</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1.算法题*4 速度要快（做完后做笔记）（√）<br>2.看《游戏开发梦工厂》（√）<br>3.临帖《灵飞经》(√)<br>4.了解物联网大赛（√）</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/18/2022-2-18-%E4%BF%AE%E8%A1%8C/" data-id="ckztonyry0006sguib0eb9i82" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-再次开始" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/myblog.github.io/2022/02/17/%E5%86%8D%E6%AC%A1%E5%BC%80%E5%A7%8B/" class="article-date">
-  <time datetime="2022-02-17T02:38:53.000Z" itemprop="datePublished">2022-02-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/myblog.github.io/2022/02/17/%E5%86%8D%E6%AC%A1%E5%BC%80%E5%A7%8B/">再次开始</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>前段时间进行了辩论队的训练，作息已经被打乱了，现在开始重新调整。<br>辩论时，我的气息，声线的训练、阅读的书籍起了作用。这是很好的。<br>“迟日江山丽，春风花草香。”<br>春天来了，天气转暖。<br>1.算法题<br>2.阅读《游戏开发梦工厂》<br>3.灵飞经<br>4.报名微专业。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/17/%E5%86%8D%E6%AC%A1%E5%BC%80%E5%A7%8B/" data-id="ckztonys5000isgui8n1920co" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2022-2-12" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/myblog.github.io/2022/02/12/2022-2-12/" class="article-date">
-  <time datetime="2022-02-12T00:17:14.000Z" itemprop="datePublished">2022-02-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/myblog.github.io/2022/02/12/2022-2-12/">2022-2-12</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1.编辑器开发demo。<br>2.辩论题准备。<br>3.算法题目准备。<br>4.临帖《灵飞经》</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/12/2022-2-12/" data-id="ckztonyry0005sguifbw50i71" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2022-2-11-修行" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/myblog.github.io/2022/02/11/2022-2-11-%E4%BF%AE%E8%A1%8C/" class="article-date">
-  <time datetime="2022-02-11T02:02:33.000Z" itemprop="datePublished">2022-02-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/myblog.github.io/2022/02/11/2022-2-11-%E4%BF%AE%E8%A1%8C/">2022-2-11-修行</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>编写游戏demo<br>算法题*2<br>灵飞经<br>辩论会线上会议19:00</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/11/2022-2-11-%E4%BF%AE%E8%A1%8C/" data-id="ckztonyrx0004sguifbarfgl2" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2022-2-10" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/myblog.github.io/2022/02/10/2022-2-10/" class="article-date">
-  <time datetime="2022-02-10T02:46:49.000Z" itemprop="datePublished">2022-02-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/myblog.github.io/2022/02/10/2022-2-10/">2022-2-10</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1.完善玩法并且完成demo<br>2.算法题*2<br>3.灵飞经<br>“男孩子的眼里应该装着星辰和大海，而不是乱糟糟的人间和不值得爱的小姑娘”</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/10/2022-2-10/" data-id="ckztonyrx0003sguigbm34kjk" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-开始游戏开发之旅" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/myblog.github.io/2022/02/09/%E5%BC%80%E5%A7%8B%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E6%97%85/" class="article-date">
-  <time datetime="2022-02-09T03:13:57.000Z" itemprop="datePublished">2022-02-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/myblog.github.io/2022/02/09/%E5%BC%80%E5%A7%8B%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E6%97%85/">开始游戏开发之旅</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>游戏开发之旅正式开始<br>1.准备创意玩法word<br>2.学习编辑器使用<br>3.刷算法题<br>4.朗读，气息训练<br>5.晚上8:30集思会<br>（日常：身体锻炼、饮食管理、晚上10:30睡觉）</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/09/%E5%BC%80%E5%A7%8B%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E6%97%85/" data-id="ckztonys9000ksgui9thp4yhk" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2022-2-8-修行" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/myblog.github.io/2022/02/08/2022-2-8-%E4%BF%AE%E8%A1%8C/" class="article-date">
-  <time datetime="2022-02-07T23:48:59.000Z" itemprop="datePublished">2022-02-08</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/myblog.github.io/2022/02/08/2022-2-8-%E4%BF%AE%E8%A1%8C/">2022-2-8-修行</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>因为前几天睡饱了，今天起得早些。<br>1.会议讲稿  （√）<br>2.朗读，气息练习（√）<br>3.科四刷学时  （约考时间已过，不弄了）<br>4.算法最短路径  （√）<br>5.绿洲编辑器一个案例  （√）<br>6.《游戏开发梦工厂》  （√）<br>“晚安 森林 晚安 湖泊 晚安 人世间每一次的星辰闪烁 我和沉默的万物说晚安 就是不和你说”——《Sacred Play Secret Place》</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/08/2022-2-8-%E4%BF%AE%E8%A1%8C/" data-id="ckztonys3000esgui10s27u4b" class="article-share-link">Share</a>
+      <a data-url="https://fengbinlin.github.io/myblog.github.io/2022/02/19/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/" data-id="cl0erl6kw001350ui2962h6sw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -444,7 +447,7 @@
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/myblog.github.io/page/2/">2</a><a class="page-number" href="/myblog.github.io/page/3/">3</a><a class="page-number" href="/myblog.github.io/page/4/">4</a><a class="extend next" rel="next" href="/myblog.github.io/page/2/">Next &amp;raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/myblog.github.io/page/2/">2</a><a class="page-number" href="/myblog.github.io/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/myblog.github.io/page/5/">5</a><a class="extend next" rel="next" href="/myblog.github.io/page/2/">Next &amp;raquo;</a>
   </nav>
 
 </section>
@@ -463,7 +466,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/myblog.github.io/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/myblog.github.io/archives/2022/01/">January 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/myblog.github.io/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/myblog.github.io/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/myblog.github.io/archives/2022/01/">January 2022</a></li></ul>
     </div>
   </div>
 
@@ -476,23 +479,23 @@
       <ul>
         
           <li>
-            <a href="/myblog.github.io/2022/02/19/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/">面向对象的三大特性</a>
+            <a href="/myblog.github.io/2022/03/06/%E5%AF%BB%E6%89%BE%E7%9F%A9%E5%BD%A2%E6%A1%86/">寻找矩形框</a>
           </li>
         
           <li>
-            <a href="/myblog.github.io/2022/02/19/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%92%8C%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB/">面向对象和面向过程的区别</a>
+            <a href="/myblog.github.io/2022/03/01/2022-3-1/">2022-3-1</a>
           </li>
         
           <li>
-            <a href="/myblog.github.io/2022/02/19/2022-2-19/">2022-2-19</a>
+            <a href="/myblog.github.io/2022/02/28/2022-2-28/">2022-2-28</a>
           </li>
         
           <li>
-            <a href="/myblog.github.io/2022/02/18/2022-2-18-%E4%BF%AE%E8%A1%8C/">2022-2-18-修行</a>
+            <a href="/myblog.github.io/2022/02/27/2022-2-27/">2022-2-27</a>
           </li>
         
           <li>
-            <a href="/myblog.github.io/2022/02/17/%E5%86%8D%E6%AC%A1%E5%BC%80%E5%A7%8B/">再次开始</a>
+            <a href="/myblog.github.io/2022/02/26/2022-2-26/">2022-2-26</a>
           </li>
         
       </ul>
